@@ -88,7 +88,6 @@ st.set_page_config(
     layout="wide"
 )
 
-st.image("assets/lego_icon.jpg", width=80)
 import base64
 
 def image_to_base64(path):
