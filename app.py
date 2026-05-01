@@ -12,11 +12,11 @@ from notion_client import Client
 # -------------------------------------------------
 st.set_page_config(
     page_title="Kathryn's LEGO Inventory",
-    page_icon="assets/lego_icon.png",
+    page_icon="assets/lego_icon.jpg",
     layout="wide"
 )
 
-st.image("assets/lego_icon.png", width=80)
+st.image("assets/lego_icon.jpg", width=80)
 st.title("Kathryn's LEGO Inventory")
 
 # -------------------------------------------------
