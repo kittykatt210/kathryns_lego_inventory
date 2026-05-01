@@ -6,6 +6,78 @@ import streamlit as st
 import plotly.express as px
 from notion_client import Client
 
+# -------------------------------------------------
+# Branded Header
+# -------------------------------------------------
+
+st.markdown(
+    """
+    <style>
+        .lego-header {
+            background: linear-gradient(90deg, #f7d117 0%, #e3000b 45%, #0055bf 100%);
+            padding: 1.25rem 1.5rem;
+            border-radius: 18px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+        }
+
+        .lego-header-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lego-header img {
+            width: 82px;
+            height: 82px;
+            border-radius: 18px;
+            background: white;
+            padding: 6px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+        }
+
+        .lego-title {
+            color: white;
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.05;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .lego-subtitle {
+            color: white;
+            font-size: 1rem;
+            margin-top: 0.35rem;
+            opacity: 0.95;
+            letter-spacing: 0.04em;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 14px;
+            padding: 1rem;
+            border-left: 8px solid #f7d117;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: #555;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .metric-value {
+            font-size: 1.65rem;
+            color: #111;
+            font-weight: 800;
+            margin-top: 0.25rem;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # -------------------------------------------------
 # Page setup
@@ -17,7 +89,29 @@ st.set_page_config(
 )
 
 st.image("assets/lego_icon.jpg", width=80)
-st.title("Kathryn's LEGO Inventory")
+import base64
+
+def image_to_base64(path):
+    with open(path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode()
+
+
+icon_base64 = image_to_base64("assets/lego_icon.jpg")
+
+st.markdown(
+    f"""
+    <div class="lego-header">
+        <div class="lego-header-row">
+            <img src="data:image/jpg;base64,{icon_base64}">
+            <div>
+                <h1 class="lego-title">Kathryn's LEGO Inventory</h1>
+                <div class="lego-subtitle">Track • Analyze • Build • Brick by Brick</div>
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # -------------------------------------------------
 # Secrets
@@ -556,14 +650,62 @@ total_pieces = int(df["Total Pieces"].sum())
 total_spend = df["Total Purchase Value"].sum()
 total_retail = df["Total Retail Value"].sum()
 
-col1, col2, col3, col4, col5 = st.columns(5)
+metric_col1, metric_col2, metric_col3, metric_col4, metric_col5 = st.columns(5)
 
-col1.metric("Unique Sets", f"{unique_sets:,}")
-col2.metric("Total Sets", f"{total_sets:,}")
-col3.metric("Total Pieces", f"{total_pieces:,}")
-col4.metric("Total Spend", f"${total_spend:,.2f}")
-col5.metric("Retail Value", f"${total_retail:,.2f}")
+with metric_col1:
+    st.markdown(
+        f"""
+        <div class="metric-card">
+            <div class="metric-label">Unique Sets</div>
+            <div class="metric-value">{unique_sets:,}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
+with metric_col2:
+    st.markdown(
+        f"""
+        <div class="metric-card">
+            <div class="metric-label">Total Sets</div>
+            <div class="metric-value">{total_sets:,}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+with metric_col3:
+    st.markdown(
+        f"""
+        <div class="metric-card">
+            <div class="metric-label">Total Pieces</div>
+            <div class="metric-value">{total_pieces:,}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+with metric_col4:
+    st.markdown(
+        f"""
+        <div class="metric-card">
+            <div class="metric-label">Total Spend</div>
+            <div class="metric-value">${total_spend:,.2f}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+with metric_col5:
+    st.markdown(
+        f"""
+        <div class="metric-card">
+            <div class="metric-label">Retail Value</div>
+            <div class="metric-value">${total_retail:,.2f}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # -------------------------------------------------
 # Filters
