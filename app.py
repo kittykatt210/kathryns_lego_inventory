@@ -12,13 +12,12 @@ from notion_client import Client
 # -------------------------------------------------
 st.set_page_config(
     page_title="Kathryn's LEGO Inventory",
-    #page_icon="assets/743F27F4-BDA6-4977-8281-F18EE5FAD15E.png",
+    page_icon="assets/lego_icon.png",
     layout="wide"
 )
 
+st.image("assets/lego_icon.png", width=80)
 st.title("Kathryn's LEGO Inventory")
-st.image("assets/743F27F4-BDA6-4977-8281-F18EE5FAD15E.png", width=120)
-
 
 # -------------------------------------------------
 # Secrets
