@@ -2,5 +2,5 @@ streamlit
 pandas
 requests
 python-dotenv
-notion-client
+notion-client==2.2.1
 plotly
